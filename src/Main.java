@@ -24,43 +24,43 @@ class Main {
         return (caracter >= 'a' && caracter <= 'z') || (caracter >= 'A' && caracter <= 'Z') || (caracter >= '0' && caracter <= '9');
     }
 
-    public static String Infijo_a_Posfijo(String infijo) {
+    public static String Infijo_a_Sufijo(String infijo) {
         if (infijo == null || infijo.length() == 0) {
             return infijo;
         }
 
         Stack<Character> pila = new Stack<>();
-        String posfijo = "";
+        String sufijo = "";
 
         for (char c : infijo.toCharArray()) {
             if (c == '(') {
                 pila.add(c);
             } else if (c == ')') {
                 while (pila.peek() != '(') {
-                    posfijo += pila.pop();
+                    sufijo += pila.pop();
                 }
                 pila.pop();
             } else if (EsOperador(c)) {
-                posfijo += c;
+                sufijo += c;
             } else {
                 while (!pila.isEmpty() && caracteres(c) >= caracteres(pila.peek())) {
-                    posfijo += pila.pop();
+                    sufijo += pila.pop();
                 }
                 pila.add(c);
             }
         }
 
         while (!pila.isEmpty()) {
-            posfijo += pila.pop();
+            sufijo += pila.pop();
         }
 
-        return posfijo;
+        return sufijo;
     }
 
     public static void main(String[] args) {
-        String infix = "A*(B*C+D*E)+F";
+        String infijo = "A*(B*C+D*E)+F";
 
-        String postfix = Infijo_a_Posfijo(infix);
-        System.out.println(postfix);
+        String sufijo = Infijo_a_Sufijo(infijo);
+        System.out.println(sufijo);
     }
 }
